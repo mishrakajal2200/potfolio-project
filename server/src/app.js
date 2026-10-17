@@ -11,9 +11,14 @@ const app = express();
 // Security headers
 app.use(helmet());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://kajal-mishra-website.netlify.app",
+];
+
 // Allow requests from the React frontend
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"allowedOrigins",
 }));
 
 // Parse incoming JSON data
