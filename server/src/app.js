@@ -18,7 +18,7 @@ const allowedOrigins = [
 
 // Allow requests from the React frontend
 app.use(cors({
-    origin:"allowedOrigins",
+    origin:allowedOrigins,
 }));
 
 // Parse incoming JSON data
