@@ -15,26 +15,29 @@ export const submitContact = async (req, res, next) => {
       });
     }
 
-    await createContact(validation.values);
+    // Save the contact before responding.
+    const contact = await createContact(validation.values);
 
-    try {
-  const info = await sendContactNotification(validation.values);
-
-  console.log("Contact notification accepted by mail server:", info.messageId);
-} catch (emailError) {
-  console.error("Contact notification email failed:", emailError);
-}
-
-console.log("Email configuration loaded:", {
-  user: Boolean(process.env.EMAIL_USER),
-  password: Boolean(process.env.EMAIL_PASS),
-  receiver: Boolean(process.env.CONTACT_RECEIVER),
-});
-
-    return res.status(201).json({
+    // Respond after MongoDB successfully saves the contact.
+    res.status(201).json({
       success: true,
       message: "Your message has been submitted successfully",
     });
+
+    // Attempt the email notification without delaying the response.
+    sendContactNotification(validation.values)
+      .then((info) => {
+        console.log(
+          "Contact notification accepted by mail server:",
+          info.messageId
+        );
+      })
+      .catch((emailError) => {
+        console.error(
+          "Contact notification email failed:",
+          emailError.message
+        );
+      });
   } catch (error) {
     next(error);
   }
