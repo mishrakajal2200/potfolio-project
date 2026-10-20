@@ -9,7 +9,7 @@ export const navigationLinks = [
   },
   {
     label: "Services",
-    path: "/#services",
+    path: "/services",
     type: "section",
   },
   {
@@ -19,7 +19,7 @@ export const navigationLinks = [
   },
   {
     label: "About",
-    path: "/#about",
+    path: "/about",
     type: "section",
   },
   {

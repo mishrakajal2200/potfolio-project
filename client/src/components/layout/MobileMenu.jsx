@@ -89,31 +89,45 @@ function MobileMenu({
         })}
       </nav>
 
-      {/* Mobile CTA */}
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.25,
-          delay: links.length * 0.04,
-        }}
-        className="mt-5 border-t border-white/10 pt-5"
-      >
-        <Link
-          to="/contact"
-          onClick={onClose}
-          className="flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3.5 text-sm font-semibold text-neutral-950 transition-all duration-300 hover:bg-neutral-200"
-        >
-          Start a Project
-          <FiArrowUpRight size={16} />
-        </Link>
-      </motion.div>
+{/* Mobile CTA */}
+<motion.div
+  initial={{
+    opacity: 0,
+    y: 10,
+  }}
+  animate={{
+    opacity: 1,
+    y: 0,
+  }}
+  transition={{
+    duration: 0.25,
+    delay: links.length * 0.04,
+  }}
+  className="mt-5 space-y-3 border-t border-white/10 pt-5"
+>
+  {/* Download Resume */}
+  <a
+    href="/resume.pdf"
+    download="Kajal-Mishra-Resume.pdf"
+    onClick={onClose}
+    className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3.5 text-sm font-semibold text-neutral-300 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:text-white"
+  >
+    Download Resume
+    <FiArrowUpRight size={16} />
+  </a>
+
+  {/* Contact CTA */}
+  <Link
+    to="/contact"
+    onClick={onClose}
+    className="flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3.5 text-sm font-semibold text-neutral-950 transition-all duration-300 hover:bg-neutral-200"
+  >
+    Start a Project
+    <FiArrowUpRight size={16} />
+  </Link>
+</motion.div>
+
+
     </div>
   );
 }

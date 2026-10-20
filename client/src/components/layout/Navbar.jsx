@@ -48,7 +48,7 @@ function Navbar() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
-        <div className="border-b border-white/10 bg-neutral-950/80 backdrop-blur-xl">
+        <div className="border-b border-indigo-300/15 bg-gradient-to-r from-slate-950/95 via-indigo-950/95 to-violet-950/95 shadow-lg shadow-indigo-950/20 backdrop-blur-2xl">
           <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
             {/* Logo */}
             <Link
@@ -108,16 +108,24 @@ function Navbar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:block">
-              <Button
-                to="/contact"
-                size="sm"
-                variant="secondary"
-                icon={false}
-              >
-                Start a Project
-              </Button>
-            </div>
+            <div className="hidden items-center gap-3 lg:flex">
+  <a
+    href="/resume.pdf"
+    download="Kajal-Mishra-Resume.pdf"
+    className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-indigo-100 transition-all duration-300 hover:border-indigo-300/40 hover:bg-white/10 hover:text-white"
+  >
+    Resume ↓
+  </a>
+
+  <Button
+    to="/contact"
+    size="sm"
+    variant="secondary"
+    icon={false}
+  >
+    Start a Project
+  </Button>
+</div>
 
             {/* Mobile Menu Button */}
             <button
@@ -161,7 +169,7 @@ function Navbar() {
               transition={{
                 duration: 0.25,
               }}
-              className="overflow-hidden border-b border-white/10 bg-neutral-950/95 backdrop-blur-xl lg:hidden"
+              className="overflow-hidden border-b border-indigo-300/15 bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-950 shadow-xl shadow-black/20 backdrop-blur-2xl lg:hidden"
             >
               <MobileMenu
                 links={navigationLinks}

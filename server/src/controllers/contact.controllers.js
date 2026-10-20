@@ -7,6 +7,7 @@ export const submitContact = async (req, res, next) => {
   try {
     const validation = validateContact(req.body);
 
+    // Validate contact form data
     if (!validation.isValid) {
       return res.status(400).json({
         success: false,
@@ -15,26 +16,23 @@ export const submitContact = async (req, res, next) => {
       });
     }
 
-    // Save the contact before responding.
-    const contact = await createContact(validation.values);
+    // Save the contact to MongoDB
+    await createContact(validation.values);
 
-    // Respond after MongoDB successfully saves the contact.
+    // Respond to the frontend after saving
     res.status(201).json({
       success: true,
       message: "Your message has been submitted successfully",
     });
 
-    // Attempt the email notification without delaying the response.
+    // Send the email notification asynchronously
     sendContactNotification(validation.values)
-      .then((info) => {
-        console.log(
-          "Contact notification accepted by mail server:",
-          info.messageId
-        );
+      .then((data) => {
+        console.log("Resend accepted email:", data?.id);
       })
       .catch((emailError) => {
         console.error(
-          "Contact notification email failed:",
+          "Contact notification failed:",
           emailError.message
         );
       });

@@ -1,25 +1,17 @@
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendContactNotification = async (contact) => {
-  return transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: process.env.CONTACT_RECEIVER,
+  console.log("Starting contact email request...");
+
+  const { data, error } = await resend.emails.send({
+    from: "Portfolio Contact <onboarding@resend.dev>",
+    to: [process.env.CONTACT_RECEIVER],
     replyTo: contact.email,
     subject: `New portfolio inquiry from ${contact.name}`,
-    text: `
-You received a new portfolio inquiry.
+    text: `New portfolio inquiry
 
 Name: ${contact.name}
 Email: ${contact.email}
@@ -27,7 +19,15 @@ Project type: ${contact.projectType || "Not specified"}
 Budget: ${contact.budget || "Not specified"}
 
 Message:
-${contact.message}
-    `,
+${contact.message}`,
   });
+
+  if (error) {
+    console.error("Resend returned an error:", error);
+    throw new Error(`Resend email failed: ${error.message}`);
+  }
+
+  console.log("Resend accepted email. ID:", data?.id);
+
+  return data;
 };
