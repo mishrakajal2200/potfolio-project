@@ -110,7 +110,7 @@ function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden items-center gap-3 lg:flex">
   <a
-    href="/resume.pdf"
+    href="/kajal_resume.pdf"
     download="Kajal_resume.pdf"
     className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-indigo-100 transition-all duration-300 hover:border-indigo-300/40 hover:bg-white/10 hover:text-white"
   >
