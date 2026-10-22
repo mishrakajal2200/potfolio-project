@@ -72,80 +72,97 @@ function FeaturedProjects() {
                   {/* Top glow */}
                   <div className="pointer-events-none absolute left-1/4 right-1/4 top-0 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-60" />
 
-                  <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
                     {/* =========================
                         PROJECT VISUAL
                     ========================== */}
-                    <div className="relative min-h-[360px] overflow-hidden bg-[#09090d] sm:min-h-[450px] lg:min-h-[520px]">
-                      {/* Image */}
-                      {project.image ? (
-                        <motion.img
-                          src={project.image}
-                          alt={`${project.title} preview`}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          whileHover={{ scale: 1.045 }}
-                          transition={{
-                            duration: 0.8,
-                            ease: "easeOut",
-                          }}
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center">
-                            <div className="text-6xl font-black tracking-tight text-white/90">
-                              {project.title
-                                .split(" ")
-                                .map((word) => word[0])
-                                .join("")
-                                .slice(0, 3)}
-                            </div>
+                   
+{/* PROJECT VISUAL */}
+<div className="group/preview relative flex min-h-[340px] flex-col justify-center overflow-hidden bg-gradient-to-br from-[#11111b] via-[#09090d] to-[#101522] p-4 sm:min-h-[430px] sm:p-6 lg:min-h-[520px] lg:p-7">
+  {/* Ambient glow */}
+  <div className="pointer-events-none absolute -left-16 top-10 h-56 w-56 rounded-full bg-violet-500/15 blur-[100px]" />
+  <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-cyan-500/10 blur-[100px]" />
 
-                            <p className="mt-3 text-xs uppercase tracking-[0.2em] text-neutral-600">
-                              Project Preview
-                            </p>
-                          </div>
-                        </div>
-                      )}
+  {/* Preview header */}
+  <div className="relative z-10 mb-5 flex items-center justify-between gap-3">
+    <div className="flex items-center gap-2">
+      <span className="h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_10px_rgba(167,139,250,0.6)]" />
+      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+        Project Preview
+      </span>
+    </div>
 
-                      {/* Image overlays */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/40" />
+    <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-medium text-neutral-400">
+      {project.category}
+    </span>
+  </div>
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+  {/* Browser-style screenshot frame */}
+  <div className="relative z-10 overflow-hidden rounded-xl border border-white/15 bg-[#0c0c12] shadow-2xl shadow-black/50 transition-all duration-500 group-hover/preview:-translate-y-1 group-hover/preview:border-violet-400/40">
+    {/* Browser toolbar */}
+    <div className="flex h-10 items-center gap-2 border-b border-white/10 bg-[#15151d] px-3">
+      <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
 
-                      {/* Ambient project glow */}
-                      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-violet-500/20 blur-[100px] transition-all duration-700 group-hover:bg-violet-500/30" />
+      <div className="ml-3 flex min-w-0 flex-1 items-center justify-center rounded-md border border-white/[0.06] bg-black/20 px-3 py-1">
+        <span className="truncate text-[10px] text-neutral-500">
+          {project.slug}.app
+        </span>
+      </div>
 
-                      {/* Category */}
-                      <div className="absolute left-5 top-5 sm:left-7 sm:top-7">
-                        <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3.5 py-2 backdrop-blur-xl">
-                          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+      <FiExternalLink className="shrink-0 text-neutral-500" size={13} />
+    </div>
 
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80">
-                            {project.category}
-                          </span>
-                        </div>
-                      </div>
+    {/* Complete screenshot without cropping */}
+    <div className="flex h-[240px] items-center justify-center overflow-hidden bg-[#09090d] sm:h-[320px] lg:h-[365px]">
+      {project.image ? (
+        <motion.img
+          src={project.image}
+          alt={`${project.title} full project screenshot`}
+          loading="lazy"
+          className="block h-full w-full object-contain object-top"
+          whileHover={{ scale: 1.015 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        />
+      ) : (
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <FiLayers className="mb-4 text-violet-300" size={36} />
 
-                      {/* Project number */}
-                      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8">
-                        <span className="text-6xl font-black tracking-tight text-white/10 transition-colors duration-500 group-hover:text-white/20 sm:text-7xl">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
+          <span className="text-4xl font-bold tracking-tight text-white/80">
+            {project.title
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .slice(0, 3)}
+          </span>
 
-                      {/* Visual bottom label */}
-                      <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8">
-                        <div className="flex items-center gap-2 text-xs font-medium text-white/60">
-                          <FiLayers size={14} className="text-violet-300" />
-                          <span>Featured Project</span>
-                        </div>
-                      </div>
-                    </div>
+          <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-neutral-500">
+            Project preview coming soon
+          </span>
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Bottom preview metadata */}
+  <div className="relative z-10 mt-5 flex items-center justify-between gap-4">
+    <div className="flex items-center gap-2 text-xs text-neutral-400">
+      <FiLayers className="shrink-0 text-violet-300" size={14} />
+      <span>Featured Project</span>
+    </div>
+
+    <span className="text-2xl font-bold tracking-tight text-white/20">
+      {String(index + 1).padStart(2, "0")}
+    </span>
+  </div>
+</div>
+
 
                     {/* =========================
                         PROJECT CONTENT
                     ========================== */}
-                    <div className="relative flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+                    <div className="relative flex flex-col justify-between p-6 sm:p-9 lg:p-12 xl:p-14">
                       {/* Decorative glow */}
                       <div className="pointer-events-none absolute -right-32 top-[-120px] h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
 
@@ -190,7 +207,7 @@ function FeaturedProjects() {
                               Key capabilities
                             </p>
 
-                            <div className="grid gap-2 sm:grid-cols-2">
+                            <div className="grid gap-x-5 gap-y-4 sm:grid-cols-2">
                               {project.features
                                 .slice(0, 6)
                                 .map((feature) => (
