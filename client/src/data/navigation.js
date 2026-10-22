@@ -45,19 +45,19 @@ export const socialLinks = [
 export const footerServiceLinks = [
   {
     label: "E-commerce Development",
-    href: "/#services",
+    href: "/services",
   },
   {
     label: "SaaS & Admin Dashboards",
-    href: "/#services",
+    href: "/services",
   },
   {
     label: "React Development",
-    href: "/#services",
+    href: "/services",
   },
   {
     label: "API Development",
-    href: "/#services",
+    href: "/services",
   },
 ];
 
