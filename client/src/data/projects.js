@@ -113,7 +113,7 @@ export const projects = [
 
     role: "Full Stack Developer",
 
-    duration: "6 Months",
+    duration: "8 Months",
 
     image: eCommerceImage,
 
