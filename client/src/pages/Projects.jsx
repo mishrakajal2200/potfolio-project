@@ -15,6 +15,8 @@ import Footer from "../components/layout/Footer";
 import Container from "../components/common/Container";
 import ProjectFilter from "../components/projects/ProjectFilter";
 import { getProjects } from "../services/projectService";
+import erpDashboard from "../assets/images/profile/saas.png";
+import eCommerceImage from "../assets/images/profile/gsi.png";
 
 function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -41,7 +43,13 @@ function Projects() {
           ...project,
           id: project._id || project.id,
           slug: project.slug || project._id,
-          image: project.image || "",
+          image:
+  project.image ||
+  (project.slug === "multi-tenant-erp-saas"
+    ? erpDashboard
+    : project.slug === "ecommerce-web-application"
+      ? eCommerceImage
+      : ""),
           links: {
             live: project.liveUrl || "",
             github: project.githubUrl || "",
@@ -421,11 +429,14 @@ function Projects() {
                         >
                           {featuredProject.image ? (
                             <img
-                              src={featuredProject.image}
-                              alt={`${featuredProject.title} preview`}
-                              loading="lazy"
-                              className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover/preview:scale-[1.04]"
-                            />
+  src={featuredProject.image}
+  alt={`${featuredProject.title} preview`}
+  loading="lazy"
+  onError={(event) => {
+    event.currentTarget.style.display = "none";
+  }}
+  className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover/preview:scale-[1.04]"
+/>
                           ) : (
                             <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-gradient-to-br from-violet-950/80 via-[#11132c] to-cyan-950/60">
                               <div className="absolute h-72 w-72 rounded-full bg-violet-500/20 blur-[90px]" />
@@ -684,7 +695,7 @@ function Projects() {
                               </div>
 
                               {/* Links */}
-                              <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.08] pt-5 mt-6">
+                              <div className="mt-auto mt-6 flex items-center justify-between gap-3 border-t border-white/[0.08] pt-5">
                                 <Link
                                   to={`/projects/${project.slug}`}
                                   className="inline-flex items-center gap-2 text-xs font-semibold text-white transition-colors hover:text-violet-300"
